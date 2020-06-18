@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -92,15 +92,11 @@ var _detectPrefixes = __webpack_require__(1);
 
 var _detectPrefixes2 = _interopRequireDefault(_detectPrefixes);
 
-var _detectSupportsPassive = __webpack_require__(2);
-
-var _detectSupportsPassive2 = _interopRequireDefault(_detectSupportsPassive);
-
-var _dispatchEvent = __webpack_require__(3);
+var _dispatchEvent = __webpack_require__(2);
 
 var _dispatchEvent2 = _interopRequireDefault(_dispatchEvent);
 
-var _defaults = __webpack_require__(6);
+var _defaults = __webpack_require__(5);
 
 var _defaults2 = _interopRequireDefault(_defaults);
 
@@ -126,7 +122,7 @@ function lory(slider, opts) {
 
     var index = 0;
     var options = {};
-    var touchEventParams = (0, _detectSupportsPassive2.default)() ? { passive: true } : false;
+    var touchEventParams = false;
 
     /**
      * if object is jQuery convert to native DOM element
@@ -749,37 +745,9 @@ function detectPrefixes() {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = detectSupportsPassive;
-function detectSupportsPassive() {
-    var supportsPassive = false;
-
-    try {
-        var opts = Object.defineProperty({}, 'passive', {
-            get: function get() {
-                supportsPassive = true;
-            }
-        });
-
-        window.addEventListener('testPassive', null, opts);
-        window.removeEventListener('testPassive', null, opts);
-    } catch (e) {}
-
-    return supportsPassive;
-}
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
 exports.default = dispatchEvent;
 
-var _customEvent = __webpack_require__(4);
+var _customEvent = __webpack_require__(3);
 
 var _customEvent2 = _interopRequireDefault(_customEvent);
 
@@ -803,7 +771,7 @@ function dispatchEvent(target, type, detail) {
 }
 
 /***/ }),
-/* 4 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -855,10 +823,10 @@ function CustomEvent (type, params) {
   return e;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
-/* 5 */
+/* 4 */
 /***/ (function(module, exports) {
 
 var g;
@@ -885,7 +853,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 6 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -997,8 +965,8 @@ exports.default = {
 };
 
 /***/ }),
-/* 7 */,
-/* 8 */
+/* 6 */,
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
