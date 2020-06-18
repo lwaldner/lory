@@ -306,13 +306,8 @@ function lory(slider, opts) {
          */
         position.x = nextOffset;
 
-        /**
-         * update the index with the nextIndex only if
-         * the offset of the nextIndex is in the range of the maxOffset
-         */
-        if (slides[nextIndex].offsetLeft <= maxOffset) {
-            index = nextIndex;
-        }
+        // MY CHANGE
+        index = nextIndex;
 
         if (infinite && (nextIndex === slides.length - infinite || nextIndex === slides.length - slides.length % infinite || nextIndex === 0)) {
             if (direction) {
