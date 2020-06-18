@@ -1,7 +1,6 @@
 /* globals jQuery */
 
 import detectPrefixes from './utils/detect-prefixes.js';
-import supportsPassive from './utils/detect-supportsPassive';
 import dispatchEvent from './utils/dispatch-event.js';
 import defaults from './defaults.js';
 
@@ -25,7 +24,7 @@ export function lory (slider, opts) {
 
     let index = 0;
     let options = {};
-    let touchEventParams = supportsPassive() ? { passive: true } : false;
+    let touchEventParams = false;
 
     /**
      * if object is jQuery convert to native DOM element
