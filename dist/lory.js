@@ -407,9 +407,14 @@ function lory(slider, opts) {
         }
 
         frame.addEventListener('touchstart', onTouchstart, touchEventParams);
+        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
+        frame.addEventListener('touchend', onTouchend);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
+            frame.addEventListener('mousemove', onTouchmove);
+            frame.addEventListener('mouseup', onTouchend);
+            frame.addEventListener('mouseleave', onTouchend);
             frame.addEventListener('click', onClick);
         }
 
@@ -549,19 +554,7 @@ function lory(slider, opts) {
     }
 
     function onTouchstart(event) {
-        var _options6 = options,
-            enableMouseEvents = _options6.enableMouseEvents;
-
         var touches = event.touches ? event.touches[0] : event;
-
-        if (enableMouseEvents) {
-            frame.addEventListener('mousemove', onTouchmove);
-            frame.addEventListener('mouseup', onTouchend);
-            frame.addEventListener('mouseleave', onTouchend);
-        }
-
-        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
-        frame.addEventListener('touchend', onTouchend);
 
         var pageX = touches.pageX,
             pageY = touches.pageY;
@@ -598,6 +591,7 @@ function lory(slider, opts) {
         }
 
         if (!isScrolling && touchOffset) {
+            event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
 
@@ -649,15 +643,6 @@ function lory(slider, opts) {
         }
 
         touchOffset = undefined;
-
-        /**
-         * remove eventlisteners after swipe attempt
-         */
-        frame.removeEventListener('touchmove', onTouchmove);
-        frame.removeEventListener('touchend', onTouchend);
-        frame.removeEventListener('mousemove', onTouchmove);
-        frame.removeEventListener('mouseup', onTouchend);
-        frame.removeEventListener('mouseleave', onTouchend);
 
         dispatchSliderEvent('on', 'touchend', {
             event: event

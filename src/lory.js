@@ -319,9 +319,14 @@ export function lory (slider, opts) {
         }
 
         frame.addEventListener('touchstart', onTouchstart, touchEventParams);
+        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
+        frame.addEventListener('touchend', onTouchend);
 
         if (enableMouseEvents) {
             frame.addEventListener('mousedown', onTouchstart);
+            frame.addEventListener('mousemove', onTouchmove);
+            frame.addEventListener('mouseup', onTouchend);
+            frame.addEventListener('mouseleave', onTouchend);
             frame.addEventListener('click', onClick);
         }
 
@@ -461,17 +466,7 @@ export function lory (slider, opts) {
     }
 
     function onTouchstart (event) {
-        const { enableMouseEvents } = options;
         const touches = event.touches ? event.touches[0] : event;
-
-        if (enableMouseEvents) {
-            frame.addEventListener('mousemove', onTouchmove);
-            frame.addEventListener('mouseup', onTouchend);
-            frame.addEventListener('mouseleave', onTouchend);
-        }
-
-        frame.addEventListener('touchmove', onTouchmove, touchEventParams);
-        frame.addEventListener('touchend', onTouchend);
 
         const { pageX, pageY } = touches;
 
@@ -506,6 +501,7 @@ export function lory (slider, opts) {
         }
 
         if (!isScrolling && touchOffset) {
+            event.preventDefault();
             translate(position.x + delta.x, 0, null);
         }
 
@@ -563,15 +559,6 @@ export function lory (slider, opts) {
         }
 
         touchOffset = undefined;
-
-        /**
-         * remove eventlisteners after swipe attempt
-         */
-        frame.removeEventListener('touchmove', onTouchmove);
-        frame.removeEventListener('touchend', onTouchend);
-        frame.removeEventListener('mousemove', onTouchmove);
-        frame.removeEventListener('mouseup', onTouchend);
-        frame.removeEventListener('mouseleave', onTouchend);
 
         dispatchSliderEvent('on', 'touchend', {
             event
